@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Project Glossary | Moss</title>
+<meta name="description" content="A quick-reference glossary of key project terms and definitions for Moss teams." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232D6A4F'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --moss-primary:#2D6A4F; --moss-accent:#52B788; --moss-light:#D8F3DC;
+    --moss-gold:#E9C46A; --moss-dark:#1B2D2A; --moss-bg:#F8FAF9;
+    --moss-body:#3d5a4c; --moss-border:#e8f0ec;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'DM Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+    background:var(--moss-bg); color:var(--moss-dark);
+    display:flex; flex-direction:column; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Plus Jakarta Sans','DM Sans',sans-serif;letter-spacing:-.01em}
+  .wrap{max-width:1200px;margin:0 auto;width:100%;padding:0 20px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(45,106,79,.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.1)}
+  .hdr{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:36px;height:36px;border-radius:9px;background:var(--moss-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0}
+  .brand h1{color:#fff;font-size:18px;font-weight:700;line-height:1.15}
+  .brand p{font-size:11.5px;color:rgba(216,243,220,.85);line-height:1.3}
+  .hdr-right{display:flex;align-items:center;gap:8px;color:#fff;font-weight:600;font-size:15px;flex-shrink:0}
+
+  /* Hero */
+  .hero{background:linear-gradient(180deg,var(--moss-light) 0%,var(--moss-bg) 100%);padding:56px 0 64px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;font-size:13.5px;font-weight:500;background:rgba(45,106,79,.1);color:var(--moss-primary);margin-bottom:16px}
+  .hero h2{font-size:36px;font-weight:800;margin-bottom:12px}
+  .hero p{font-size:17px;color:var(--moss-primary);max-width:640px;margin:0 auto}
+
+  /* Controls */
+  .controls{background:#fff;border-radius:12px;padding:20px;margin-top:-18px;box-shadow:0 4px 6px -1px rgb(0 0 0/.05),0 2px 4px -2px rgb(0 0 0/.05)}
+  .search{position:relative;margin-bottom:16px}
+  .search svg.ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--moss-accent)}
+  #q{width:100%;padding:13px 42px;border:1px solid var(--moss-light);border-radius:9px;background:var(--moss-bg);font:inherit;font-size:14.5px;color:var(--moss-dark);transition:border-color .18s,box-shadow .18s}
+  #q:focus{outline:none;border-color:var(--moss-accent);box-shadow:0 0 0 3px rgba(82,183,136,.15)}
+  #clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:transparent;cursor:pointer;padding:6px;border-radius:999px;display:none;color:#6b7280;line-height:0}
+  #clear:hover{background:#f1f3f2}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px}
+  .tab{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:9px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:transparent;color:var(--moss-primary);border:1px solid var(--moss-light);transition:all .18s}
+  .tab:hover{background:var(--moss-light)}
+  .tab.on{background:var(--moss-primary);color:#fff;border-color:var(--moss-primary)}
+  .tab .n{padding:2px 7px;border-radius:999px;font-size:11.5px;font-weight:700;background:rgba(45,106,79,.08);color:var(--moss-primary)}
+  .tab.on .n{background:rgba(255,255,255,.22);color:#fff}
+  .count{font-size:14px;font-weight:500;color:var(--moss-accent);margin:22px 0 14px}
+
+  /* Table */
+  main{flex:1;padding-bottom:64px}
+  .tablecard{background:#fff;border:1px solid var(--moss-border);border-radius:12px;overflow:hidden;box-shadow:0 4px 6px -1px rgb(0 0 0/.05),0 2px 4px -2px rgb(0 0 0/.05)}
+  .scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  thead tr{background:var(--moss-primary)}
+  th{text-align:left;padding:14px 20px;color:#fff;font-weight:600;font-size:14.5px;white-space:nowrap}
+  th.t-term{width:210px;min-width:170px}
+  th.t-cat{width:170px;min-width:150px}
+  tbody tr{border-bottom:1px solid var(--moss-border);transition:background .15s}
+  tbody tr:last-child{border-bottom:0}
+  tbody tr:hover{background:#f0f7f2}
+  td{padding:15px 20px;vertical-align:top;line-height:1.6;color:var(--moss-body)}
+  td.term{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--moss-primary)}
+  mark{background:rgba(233,196,106,.45);color:inherit;border-radius:3px;padding:0 1px}
+  .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap}
+  .badge.ba{background:rgba(45,106,79,.1);color:var(--moss-primary)}
+  .badge.cs{background:rgba(233,196,106,.22);color:#8a6410}
+
+  /* Empty */
+  .empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:80px 20px}
+  .empty .circle{width:64px;height:64px;border-radius:999px;background:var(--moss-light);color:var(--moss-primary);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .empty h3{font-size:18px;font-weight:700;margin-bottom:6px}
+  .empty p{font-size:14px;color:#6b7280}
+
+  /* Footer */
+  footer{border-top:1px solid var(--moss-border);background:#fff;padding:22px 0}
+  .ftr{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .ftr .fb{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500}
+  .ftr .fl{width:24px;height:24px;border-radius:5px;background:var(--moss-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px}
+  .ftr small{font-size:12px;color:#6b7280}
+
+  @media (max-width:640px){
+    .hero{padding:40px 0 48px}
+    .hero h2{font-size:27px}
+    .hero p{font-size:15px}
+    .brand p{display:none}
+    th,td{padding:12px 14px}
+    th.t-term{width:150px;min-width:130px}
+  }
+  @media print{
+    header,.hero,.controls,.count,footer{display:none!important}
+    body{background:#fff}
+    thead tr{background:#2D6A4F!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .tablecard{box-shadow:none;border:1px solid #ccc}
+    tbody tr{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hdr">
+    <div class="brand">
+      <div class="logo">M</div>
+      <div>
+        <h1 class="display">Moss</h1>
+        <p>Empower to create the exceptional</p>
+      </div>
+    </div>
+    <div class="hdr-right">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#D8F3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span class="display">Project Glossary</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="pill">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span id="totalPill"></span>
+    </div>
+    <h2 class="display">Project Glossary</h2>
+    <p>A quick-reference guide to key project terms and definitions used across Moss teams.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="controls">
+    <div class="search">
+      <svg class="ico" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="Search terms or definitions&hellip;" autocomplete="off" aria-label="Search glossary" />
+      <button id="clear" aria-label="Clear search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="tabs" id="tabs" role="tablist"></div>
+  </div>
+</div>
+
+<div class="wrap"><p class="count" id="count"></p></div>
+
+<main class="wrap">
+  <div class="tablecard" id="tablecard">
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th class="display t-term">Term</th>
+            <th class="display">Definition</th>
+            <th class="display t-cat">Category</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="empty" id="empty" hidden>
+    <div class="circle">
+      <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    </div>
+    <h3 class="display">No matching terms</h3>
+    <p>Try adjusting your search or changing the filter.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap ftr">
+    <div class="fb"><div class="fl">M</div><span>Moss Construction</span></div>
+    <small>&copy; 2025 Moss Construction. All rights reserved.</small>
+  </div>
+</footer>
+
+<script>
+const TERMS = [
+  {
+    "term": "Acceptance Criteria",
+    "definition": "Specific conditions that must be met for a requirement, user story, or solution to be considered complete and acceptable by stakeholders.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Agile",
+    "definition": "An iterative project delivery methodology focused on collaboration, customer feedback, and incremental delivery of value.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "ALM",
+    "definition": "Application Lifecycle Management.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "Assumption",
+    "definition": "A factor considered true, real, or certain without proof for planning purposes.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "BRD",
+    "definition": "Business Requirements Document. A formal document that captures objectives, requirements, scope, assumptions, constraints, and stakeholder needs.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Business Analyst (BA)",
+    "definition": "A professional responsible for understanding business needs, analyzing processes, documenting requirements, and helping deliver solutions that provide business value.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Business Case",
+    "definition": "A document that justifies a project or initiative by outlining benefits, costs, risks, and expected outcomes.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Business Requirement",
+    "definition": "A high-level statement describing what the business needs to achieve.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "CAB",
+    "definition": "Change Advisory Board.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "CCB",
+    "definition": "Change Control Board. A governance body responsible for reviewing, approving, rejecting, or prioritizing requested changes.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "CCB (Company)",
+    "definition": "Change Control Board.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "Change Request (CR)",
+    "definition": "A formal request to modify scope, requirements, functionality, processes, or project deliverables.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Current State",
+    "definition": "The existing business process, workflow, system, or operating model before improvements are implemented.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Defect",
+    "definition": "A flaw or issue in a system that causes expected results to differ from actual results.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Deliverable",
+    "definition": "A tangible output produced during a project, such as a process map, requirements document, or test plan.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Dependency",
+    "definition": "A task, activity, system, or resource that must be completed or available before another activity can proceed.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Discovery",
+    "definition": "The phase in which requirements, business objectives, stakeholders, risks, and opportunities are identified.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "End User",
+    "definition": "An individual who ultimately uses a system, product, service, or process.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Enhancement",
+    "definition": "A modification that improves functionality, usability, or performance of an existing process or system.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Epic",
+    "definition": "A large body of work that can be broken into multiple user stories or requirements.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "FHP II",
+    "definition": "Field Handoff Procedures II Project.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "Functional Requirement",
+    "definition": "A requirement that describes what a system or solution must do.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Future State",
+    "definition": "The desired business process, workflow, or operating model after improvements are implemented.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Gap Analysis",
+    "definition": "The comparison between the current state and future state to identify gaps that must be addressed.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Go-Live",
+    "definition": "Transition of a solution into production use.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "Governance",
+    "definition": "The framework of processes, controls, policies, and decision-making structures used to manage work.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Hypercare",
+    "definition": "A period immediately following deployment where additional support and monitoring are provided.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Hypercare (Company)",
+    "definition": "Post-go-live support period focused on stabilization and issue resolution.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "Impact Assessment",
+    "definition": "An evaluation of how a proposed change affects people, processes, technology, and operations.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "IOM",
+    "definition": "Integrated Opportunity Management.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "Issue",
+    "definition": "A problem that currently exists and requires resolution.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "JAD",
+    "definition": "Joint Application Development. A facilitated workshop used to gather requirements and align stakeholders on project objectives.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "KPI",
+    "definition": "Key Performance Indicator. A measurable value used to evaluate performance against business objectives.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Lessons Learned",
+    "definition": "Knowledge gained from project successes, challenges, and outcomes to improve future initiatives.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "MVP",
+    "definition": "Minimum Viable Product. The smallest set of features needed to deliver value and validate a solution.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Non-Functional Requirement",
+    "definition": "A requirement describing how a system performs rather than what it does, such as security, availability, reliability, or performance.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Operational Readiness",
+    "definition": "The state of preparedness required for a business to successfully adopt and support a new solution.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Oracle Fusion",
+    "definition": "Enterprise resource planning platform used for business operations.",
+    "category": "Company-Specific"
+  },
+  {
+    "term": "Process Flow",
+    "definition": "A visual representation of activities, decisions, inputs, outputs, and responsibilities within a process.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Product Owner",
+    "definition": "The individual responsible for prioritizing and managing a product backlog and maximizing delivered value.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Project Scope",
+    "definition": "The boundaries of a project defining what is included and excluded.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "QRG",
+    "definition": "Quick Reference Guide. A concise document providing step-by-step instructions for performing a task or process.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "RAID Log",
+    "definition": "A project management document used to track risks, assumptions, issues, and dependencies.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Requirement",
+    "definition": "A documented need, expectation, capability, or condition required to achieve a business objective.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Requirements Traceability Matrix (RTM)",
+    "definition": "A document used to track requirements throughout the project lifecycle to ensure they are developed, tested, and implemented.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Risk",
+    "definition": "A potential future event that could negatively impact objectives, timelines, budget, or quality.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Scope Creep",
+    "definition": "The uncontrolled expansion of project scope without proper review, approval, or governance.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "SME",
+    "definition": "Subject Matter Expert. An individual with specialized knowledge of a business process, system, or function.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "SOP",
+    "definition": "Standard Operating Procedure. A documented set of instructions describing how a process should be performed.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Stakeholder",
+    "definition": "Any individual, group, or organization affected by or involved in a project, process, or solution.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Swimlane Diagram",
+    "definition": "A process map that visually organizes activities by role, department, or responsibility area.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Test Case",
+    "definition": "A documented set of steps, inputs, and expected results used to validate functionality.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Traceability",
+    "definition": "The ability to link requirements to design, development, testing, and deployment activities.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "UAT",
+    "definition": "User Acceptance Testing. The process in which business users validate that a solution meets requirements and is ready for production use.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "User Story",
+    "definition": "An Agile requirement typically written as: As a [user], I want [capability] so that [benefit].",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Validation",
+    "definition": "Confirmation that a solution meets business needs and requirements.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Verification",
+    "definition": "Confirmation that a solution was developed according to specifications and design requirements.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Workshop",
+    "definition": "A facilitated collaborative session used to gather information, analyze processes, make decisions, or resolve issues.",
+    "category": "Business Analyst"
+  },
+  {
+    "term": "Workstream",
+    "definition": "Functional area within a project or program.",
+    "category": "Company-Specific"
+  }
+];
+
+const ICON_BA = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>';
+const ICON_CS = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>';
+const ICON_ALL = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>';
+
+const CATS = [
+  { name: 'All', icon: ICON_ALL },
+  { name: 'Business Analyst', icon: ICON_BA },
+  { name: 'Company-Specific', icon: ICON_CS }
+];
+const counts = {
+  'All': TERMS.length,
+  'Business Analyst': TERMS.filter(t => t.category === 'Business Analyst').length,
+  'Company-Specific': TERMS.filter(t => t.category === 'Company-Specific').length
+};
+
+let active = 'All';
+let query = '';
+
+const $tabs = document.getElementById('tabs');
+const $rows = document.getElementById('rows');
+const $count = document.getElementById('count');
+const $empty = document.getElementById('empty');
+const $card = document.getElementById('tablecard');
+const $q = document.getElementById('q');
+const $clear = document.getElementById('clear');
+
+document.getElementById('totalPill').textContent = TERMS.length + ' Terms';
+
+CATS.forEach(function (c) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'tab' + (c.name === active ? ' on' : '');
+  b.setAttribute('role', 'tab');
+  b.dataset.cat = c.name;
+  b.innerHTML = c.icon + '<span>' + c.name + '</span><span class="n">' + counts[c.name] + '</span>';
+  b.addEventListener('click', function () {
+    active = c.name;
+    Array.prototype.forEach.call($tabs.children, function (el) {
+      el.classList.toggle('on', el.dataset.cat === active);
+    });
+    render();
+  });
+  $tabs.appendChild(b);
+});
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, function (m) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+  });
+}
+
+function highlight(text) {
+  const safe = esc(text);
+  if (!query) return safe;
+  const rx = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+  return safe.replace(rx, '<mark>$1</mark>');
+}
+
+function render() {
+  const q = query.toLowerCase();
+  const list = TERMS.filter(function (t) {
+    const okCat = active === 'All' || t.category === active;
+    const okQ = !q || t.term.toLowerCase().indexOf(q) > -1 || t.definition.toLowerCase().indexOf(q) > -1;
+    return okCat && okQ;
+  });
+
+  $count.textContent = 'Showing ' + list.length + ' of ' + TERMS.length + ' terms';
+
+  if (!list.length) {
+    $rows.innerHTML = '';
+    $card.hidden = true;
+    $empty.hidden = false;
+    return;
+  }
+  $card.hidden = false;
+  $empty.hidden = true;
+
+  $rows.innerHTML = list.map(function (t) {
+    const cs = t.category === 'Company-Specific';
+    return '<tr>'
+      + '<td class="term">' + highlight(t.term) + '</td>'
+      + '<td>' + highlight(t.definition) + '</td>'
+      + '<td><span class="badge ' + (cs ? 'cs' : 'ba') + '">' + (cs ? ICON_CS : ICON_BA) + esc(t.category) + '</span></td>'
+      + '</tr>';
+  }).join('');
+}
+
+$q.addEventListener('input', function () {
+  query = $q.value.trim();
+  $clear.style.display = query ? 'block' : 'none';
+  render();
+});
+$clear.addEventListener('click', function () {
+  $q.value = ''; query = ''; $clear.style.display = 'none'; $q.focus(); render();
+});
+
+render();
+</script>
+</body>
+</html>
