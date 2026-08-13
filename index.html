@@ -33,7 +33,10 @@
   .logo{width:36px;height:36px;border-radius:9px;background:var(--moss-accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0}
   .brand h1{color:#fff;font-size:18px;font-weight:700;line-height:1.15}
   .brand p{font-size:11.5px;color:rgba(216,243,220,.85);line-height:1.3}
-  .hdr-right{display:flex;align-items:center;gap:8px;color:#fff;font-weight:600;font-size:15px;flex-shrink:0}
+  .hdr-right{display:flex;align-items:center;gap:12px;color:#fff;font-weight:600;font-size:15px;flex-shrink:0}
+  .suggest-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9px;font:inherit;font-size:14px;font-weight:700;border:0;cursor:pointer;background:var(--moss-accent);color:#fff;transition:opacity .18s;text-decoration:none}
+  .suggest-btn:hover{opacity:.88}
+  .suggest-btn svg{flex-shrink:0}
 
   /* Hero */
   .hero{background:linear-gradient(180deg,var(--moss-light) 0%,var(--moss-bg) 100%);padding:56px 0 64px;text-align:center}
@@ -80,7 +83,35 @@
   .empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:80px 20px}
   .empty .circle{width:64px;height:64px;border-radius:999px;background:var(--moss-light);color:var(--moss-primary);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
   .empty h3{font-size:18px;font-weight:700;margin-bottom:6px}
-  .empty p{font-size:14px;color:#6b7280}
+  .empty p{font-size:14px;color:#6b7280;margin-bottom:16px}
+  .empty .suggest-btn{background:var(--moss-primary)}
+
+  /* Modal */
+  .overlay{position:fixed;inset:0;z-index:100;background:rgba(27,45,42,.55);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:16px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .2s}
+  .overlay.open{opacity:1;pointer-events:auto}
+  .dialog{position:relative;width:100%;max-width:500px;margin:48px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 20px 40px -12px rgba(27,45,42,.35);transform:translateY(12px) scale(.98);transition:transform .22s ease-out}
+  .overlay.open .dialog{transform:translateY(0) scale(1)}
+  .dlg-hdr{background:var(--moss-primary);padding:20px 24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .dlg-hdr h2{color:#fff;font-size:19px;font-weight:700;margin:0}
+  .dlg-hdr p{color:rgba(216,243,220,.85);font-size:12px;margin:5px 0 0}
+  .dlg-close{border:0;background:transparent;cursor:pointer;padding:6px;border-radius:8px;line-height:0;color:#fff;transition:background .15s}
+  .dlg-close:hover{background:rgba(255,255,255,.15)}
+  .dlg-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:16px}
+  .dlg-body label{display:block;font-size:14px;font-weight:600;color:var(--moss-dark);margin-bottom:6px}
+  .dlg-body label .req{color:#b45309}
+  .dlg-body input,.dlg-body textarea{width:100%;padding:10px 14px;border:1px solid var(--moss-light);border-radius:9px;background:var(--moss-bg);font:inherit;font-size:14px;color:var(--moss-dark);transition:border-color .18s,box-shadow .18s}
+  .dlg-body input:focus,.dlg-body textarea:focus{outline:none;border-color:var(--moss-accent);box-shadow:0 0 0 3px rgba(82,183,136,.15)}
+  .dlg-body textarea{resize:vertical;min-height:90px}
+  .cat-group{display:flex;flex-wrap:wrap;gap:8px}
+  .cat-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:9px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:transparent;color:var(--moss-primary);border:1px solid var(--moss-light);transition:all .18s}
+  .cat-btn:hover{background:var(--moss-light)}
+  .cat-btn.on{background:var(--moss-primary);color:#fff;border-color:var(--moss-primary)}
+  .dlg-actions{display:flex;justify-content:flex-end;gap:10px;padding-top:4px}
+  .btn-cancel{padding:10px 16px;border-radius:9px;font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:transparent;color:var(--moss-primary);border:1px solid var(--moss-light);transition:background .15s}
+  .btn-cancel:hover{background:var(--moss-light)}
+  .btn-submit{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:9px;font:inherit;font-size:14px;font-weight:700;border:0;cursor:pointer;background:var(--moss-primary);color:#fff;transition:opacity .18s}
+  .btn-submit:hover{opacity:.88}
+  .btn-submit:disabled{background:#a8bfb3;cursor:not-allowed;opacity:1}
 
   /* Footer */
   footer{border-top:1px solid var(--moss-border);background:#fff;padding:22px 0}
@@ -120,6 +151,10 @@
     <div class="hdr-right">
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#D8F3DC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
       <span class="display">Project Glossary</span>
+      <button type="button" class="suggest-btn" onclick="openSuggest()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Suggest New Term</span>
+      </button>
     </div>
   </div>
 </header>
@@ -171,8 +206,58 @@
     </div>
     <h3 class="display">No matching terms</h3>
     <p>Try adjusting your search or changing the filter.</p>
+    <button type="button" class="suggest-btn" onclick="openSuggest()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      <span>Suggest New Term</span>
+    </button>
   </div>
 </main>
+
+<!-- Suggest Term Modal -->
+<div class="overlay" id="suggestOverlay" onclick="if(event.target===this)closeSuggest()">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title">
+    <div class="dlg-hdr">
+      <div>
+        <h2 id="dlg-title" class="display">Suggest New Term</h2>
+        <p>Your suggestion is sent to the glossary team for review.</p>
+      </div>
+      <button type="button" class="dlg-close" onclick="closeSuggest()" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <form class="dlg-body" id="suggestForm" onsubmit="return submitSuggest(event)">
+      <div>
+        <label for="s-term">Term <span class="req">*</span></label>
+        <input id="s-term" type="text" placeholder="e.g. Value Stream Mapping" maxlength="200" required />
+      </div>
+      <div>
+        <label for="s-def">Definition <span class="req">*</span></label>
+        <textarea id="s-def" rows="4" placeholder="Write a clear, concise definition." maxlength="5000" required></textarea>
+      </div>
+      <div>
+        <label>Category <span class="req">*</span></label>
+        <div class="cat-group">
+          <button type="button" class="cat-btn" data-cat="Business Analyst" onclick="pickCat(this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Business Analyst
+          </button>
+          <button type="button" class="cat-btn" data-cat="Company-Specific" onclick="pickCat(this)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg>
+            Company-Specific
+          </button>
+        </div>
+        <input type="hidden" id="s-cat" required />
+      </div>
+      <div class="dlg-actions">
+        <button type="button" class="btn-cancel" onclick="closeSuggest()">Cancel</button>
+        <button type="submit" class="btn-submit" id="s-submit" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7z"/><path d="M22 2 11 13"/></svg>
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <footer>
   <div class="wrap ftr">
@@ -577,6 +662,72 @@ $clear.addEventListener('click', function () {
 });
 
 render();
+
+/* ── Suggest New Term modal ────────────────────────────────── */
+var selectedCat = '';
+
+function openSuggest() {
+  document.getElementById('s-term').value = '';
+  document.getElementById('s-def').value = '';
+  document.getElementById('s-cat').value = '';
+  selectedCat = '';
+  document.querySelectorAll('.cat-btn').forEach(function (b) { b.classList.remove('on'); });
+  document.getElementById('s-submit').disabled = true;
+  document.getElementById('suggestOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function () { document.getElementById('s-term').focus(); }, 80);
+}
+
+function closeSuggest() {
+  document.getElementById('suggestOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function pickCat(btn) {
+  selectedCat = btn.dataset.cat;
+  document.getElementById('s-cat').value = selectedCat;
+  document.querySelectorAll('.cat-btn').forEach(function (b) {
+    b.classList.toggle('on', b.dataset.cat === selectedCat);
+  });
+  checkReady();
+}
+
+function checkReady() {
+  var ok = document.getElementById('s-term').value.trim() !== ''
+        && document.getElementById('s-def').value.trim() !== ''
+        && selectedCat !== '';
+  document.getElementById('s-submit').disabled = !ok;
+}
+
+// live-check as user types
+document.getElementById('s-term').addEventListener('input', checkReady);
+document.getElementById('s-def').addEventListener('input', checkReady);
+
+// close on Escape
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape' && document.getElementById('suggestOverlay').classList.contains('open')) closeSuggest();
+});
+
+function submitSuggest(e) {
+  e.preventDefault();
+  var term = document.getElementById('s-term').value.trim();
+  var def  = document.getElementById('s-def').value.trim();
+  var cat  = selectedCat;
+  if (!term || !def || !cat) return false;
+
+  var subject = encodeURIComponent('Glossary Request');
+  var body = encodeURIComponent(
+    'Hi,\n\n'
+    + 'I would like to suggest a new term for the Project Glossary:\n\n'
+    + 'Term: ' + term + '\n\n'
+    + 'Definition: ' + def + '\n\n'
+    + 'Category: ' + cat + '\n\n'
+    + 'Thank you!'
+  );
+  window.location.href = 'mailto:adiamant@moss.com?subject=' + subject + '&body=' + body;
+  closeSuggest();
+  return false;
+}
 </script>
 </body>
 </html>
